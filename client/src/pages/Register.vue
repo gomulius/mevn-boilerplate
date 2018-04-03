@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div>
     <h1>Register</h1>
 
     <form @submit="register">
@@ -19,18 +19,22 @@ export default {
     return {
       email: '',
       password: '',
-      username: ''
+      username: '',
+      error: null
     }
   },
   methods: {
     async register (e) {
       e.preventDefault()
-      let response = await AuthService.register({
-        username: this.username,
-        password: this.password,
-        email: this.email
-      })
-      console.log(response)
+      try {
+        await AuthService.register({
+          username: this.username,
+          password: this.password,
+          email: this.email
+        })
+      } catch (e) {
+        this.error = e.response.data
+      }
     }
   }
 }
