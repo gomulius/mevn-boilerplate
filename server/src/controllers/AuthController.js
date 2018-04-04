@@ -8,13 +8,13 @@ module.exports = {
     user.password = req.body.password
     user.email = req.body.email
     if (req.body.username == null || req.body.username === '' || req.body.password == null || req.body.password === '' || req.body.email == null || req.body.email === '') {
-      res.status(400).json({ success: false, message: 'Ensure username, password, and email were provided.' })
+      res.status(400).json({ message: 'Ensure username, password, and email were provided.' })
     } else {
       user.save((err) => {
         if (err) {
-          res.status(409).json({ success: false, message: 'Username or email already exists!' })
+          res.status(409).json({ message: 'Username or email already exists!' })
         } else {
-          res.json({ success: true, message: 'User created!' })
+          res.json({ message: 'User created!' })
         }
       })
     }
