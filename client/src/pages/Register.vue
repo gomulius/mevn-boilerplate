@@ -10,8 +10,8 @@
 
           <v-container>
 
-            <v-alert outline color="error" icon="warning" :value="!!error">{{ error }}</v-alert>
-            <v-alert outline color="success" icon="check_circle" :value="!!message">{{ message }}</v-alert>
+            <v-alert outline transition="scale-transition" color="error" icon="warning" :value="!!error">{{ error }}</v-alert>
+            <v-alert outline transition="scale-transition" color="success" icon="check_circle" :value="!!message">{{ message }}</v-alert>
 
             <v-form v-model="valid" ref="form" lazy-validation @submit="register">
               <v-text-field
@@ -72,6 +72,7 @@ export default {
     async register (e) {
       e.preventDefault()
       this.error = null
+      this.message = null
       if (this.$refs.form.validate()) {
         try {
           const response = await AuthService.register({
@@ -80,7 +81,6 @@ export default {
             email: this.email
           })
           this.message = response.data.message
-          console.log(response)
         } catch (e) {
           this.error = e.response.data.message
         }
