@@ -7,16 +7,23 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn flat :to="{ name: 'Register' }">Sign Up</v-btn>
-
-      <v-btn flat :to="{ name: 'Login' }">Log In</v-btn>
+      <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Register' }">Sign Up</v-btn>
+      <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Login' }">Log In</v-btn>
+      <v-btn v-if="$store.state.loggedIn" @click="logout" flat>Log Out</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({ name: 'HelloWorld' })
+    }
+  }
 }
 </script>
 
