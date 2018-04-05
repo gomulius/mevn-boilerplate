@@ -1,5 +1,14 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+let secret = 'secret'
+
+function jwtSign (user) {
+  return jwt.sign(
+    { username: user.username, email: user.email },
+    secret,
+    { expiresIn: '24h' }
+  )
+}
 
 module.exports = {
   /* REGISTRATION */
@@ -35,7 +44,7 @@ module.exports = {
           if (!validPassword) {
             res.status(401).json({ message: 'Could not be authenticate password' })
           } else {
-            res.json({ message: 'User authenticated!' })
+            res.json({ message: 'User authenticated!', user: user, token: jwtSign(user) })
           }
         } else {
           res.status(400).json({ message: 'No password provided' })
