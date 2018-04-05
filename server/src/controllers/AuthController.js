@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
   /* REGISTRATION */
@@ -18,5 +19,28 @@ module.exports = {
         }
       })
     }
+  },
+  /* LOGIN */
+  login (req, res) {
+    User.findOne({ username: req.body.username }).select('email username password').exec((err, user) => {
+      if (err) {
+        res.status(500).json({ messaeg: 'An error has occured trying to log in'})
+      }
+
+      if (!user) {
+        res.status(401).json({ message: 'Could not authenticate user' })
+      } else if (user) {
+        if (req.body.password) {
+          const validPassword = user.comparePassword(req.body.password)
+          if (!validPassword) {
+            res.status(401).json({ message: 'Could not be authenticate password' })
+          } else {
+            res.json({ message: 'User authenticated!' })
+          }
+        } else {
+          res.status(400).json({ message: 'No password provided' })
+        }
+      }
+    });
   }
 }
