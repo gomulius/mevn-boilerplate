@@ -8,13 +8,13 @@
 
         <v-form v-model="valid" ref="form" lazy-validation @submit="login">
           <v-text-field
-          v-model="username"
+          v-model="form.username"
           type="text"
           label="Enter username:"
           :rules="[rules.required]"
           ></v-text-field>
           <v-text-field
-          v-model="password"
+          v-model="form.password"
           type="password"
           label="Enter password:"
           :rules="[rules.required]"
@@ -39,8 +39,10 @@ export default {
   data () {
     return {
       valid: true,
-      password: '',
-      username: '',
+      form: {
+        username: '',
+        password: ''
+      },
       error: null,
       message: null,
       rules: {
@@ -55,10 +57,7 @@ export default {
       this.message = null
       if (this.$refs.form.validate()) {
         try {
-          const loginResponse = await AuthService.login({
-            username: this.username,
-            password: this.password
-          })
+          const loginResponse = await AuthService.login(this.form)
           this.$store.dispatch('setToken', loginResponse.data.token)
           const jwtVerifyResponse = await getUser({
             token: this.$store.state.token

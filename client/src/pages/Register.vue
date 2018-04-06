@@ -8,19 +8,19 @@
 
         <v-form v-model="valid" ref="form" lazy-validation @submit="register">
           <v-text-field
-          v-model="username"
+          v-model="form.username"
           type="text"
           label="Enter username:"
           :rules="[rules.required]"
           ></v-text-field>
           <v-text-field
-          v-model="password"
+          v-model="form.password"
           type="password"
           label="Enter password:"
           :rules="[rules.required]"
           ></v-text-field>
           <v-text-field
-          v-model="email"
+          v-model="form.email"
           type="email"
           label="Enter email address:"
           :rules="[rules.required]"
@@ -51,15 +51,17 @@ export default {
   data () {
     return {
       valid: true,
-      email: '',
+      form: {
+        email: '',
+        password: '',
+        username: ''
+      },
       emailCheck: '',
-      password: '',
-      username: '',
       error: null,
       message: null,
       rules: {
         required: v => !!v || 'Required.',
-        email: v => v === this.email || 'Please check your email address.'
+        email: v => v === this.form.email || 'Please check your email address.'
       }
     }
   },
@@ -70,11 +72,7 @@ export default {
       this.message = null
       if (this.$refs.form.validate()) {
         try {
-          const registerResponse = await AuthService.register({
-            username: this.username,
-            password: this.password,
-            email: this.email
-          })
+          const registerResponse = await AuthService.register(this.form)
           this.$store.dispatch('setToken', registerResponse.data.token)
           const jwtVerifyResponse = await getUser({
             token: this.$store.state.token
