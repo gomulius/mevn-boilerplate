@@ -24,7 +24,7 @@ module.exports = {
         if (err) {
           res.status(409).json({ message: 'Username or email already exists!' })
         } else {
-          res.json({ message: 'User created!' })
+          res.json({ message: 'User created!', token: jwtSign(user) })
         }
       })
     }
@@ -44,12 +44,16 @@ module.exports = {
           if (!validPassword) {
             res.status(401).json({ message: 'Could not be authenticate password' })
           } else {
-            res.json({ message: 'User authenticated!', user: user, token: jwtSign(user) })
+            res.json({ message: 'User authenticated!', token: jwtSign(user) })
           }
         } else {
           res.status(400).json({ message: 'No password provided' })
         }
       }
     });
+  },
+  /* GET USER */
+  getUser (req, res) {
+    res.send(req.decoded)
   }
 }
