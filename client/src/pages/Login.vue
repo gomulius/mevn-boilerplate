@@ -30,8 +30,12 @@
 <script>
 import AuthService from '@/services/AuthService'
 import Panel from '@/components/Panel'
+import getUser from '@/mixins/getUser'
 export default {
   name: 'Login',
+  components: {
+    Panel
+  },
   data () {
     return {
       valid: true,
@@ -44,9 +48,6 @@ export default {
       }
     }
   },
-  components: {
-    Panel
-  },
   methods: {
     async login (e) {
       e.preventDefault()
@@ -54,13 +55,14 @@ export default {
       this.message = null
       if (this.$refs.form.validate()) {
         try {
-          const response = await AuthService.login({
+          const loginResponse = await AuthService.login({
             username: this.username,
             password: this.password
           })
-          this.$store.dispatch('setToken', response.data.token)
-          this.$store.dispatch('setUser', response.data.user)
-          this.message = response.data.message
+          this.$store.dispatch('setToken', loginResponse.data.token)
+          const jwtVerifyResponse = await getUser(this.$store.state.token)
+          this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
+          this.message = loginResponse.data.message
         } catch (e) {
           this.error = e.response.data.message
         }

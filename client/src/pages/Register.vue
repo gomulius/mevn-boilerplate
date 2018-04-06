@@ -42,8 +42,12 @@
 <script>
 import AuthService from '@/services/AuthService'
 import Panel from '@/components/Panel'
+import getUser from '@/mixins/getUser'
 export default {
   name: 'Register',
+  components: {
+    Panel
+  },
   data () {
     return {
       valid: true,
@@ -66,20 +70,20 @@ export default {
       this.message = null
       if (this.$refs.form.validate()) {
         try {
-          const response = await AuthService.register({
+          const registerResponse = await AuthService.register({
             username: this.username,
             password: this.password,
             email: this.email
           })
-          this.message = response.data.message
+          this.$store.dispatch('setToken', registerResponse.data.token)
+          const jwtVerifyResponse = await getUser(this.$store.state.token)
+          this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
+          this.message = registerResponse.data.message
         } catch (e) {
           this.error = e.response.data.message
         }
       }
     }
-  },
-  components: {
-    Panel
   }
 }
 </script>

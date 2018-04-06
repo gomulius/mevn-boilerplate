@@ -8,5 +8,9 @@ export default {
   // AuthService.login({ params })
   login (credentials) {
     return Api().post('login', credentials)
+  },
+  // AuthService.getUser(this.$store.state.token)
+  getUser (token) {
+    return Api().post('getUser', token)
   }
 }
