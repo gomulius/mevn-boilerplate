@@ -76,7 +76,9 @@ export default {
             email: this.email
           })
           this.$store.dispatch('setToken', registerResponse.data.token)
-          const jwtVerifyResponse = await getUser(this.$store.state.token)
+          const jwtVerifyResponse = await getUser({
+            token: this.$store.state.token
+          })
           this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
           this.message = registerResponse.data.message
         } catch (e) {

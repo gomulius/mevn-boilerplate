@@ -60,7 +60,9 @@ export default {
             password: this.password
           })
           this.$store.dispatch('setToken', loginResponse.data.token)
-          const jwtVerifyResponse = await getUser(this.$store.state.token)
+          const jwtVerifyResponse = await getUser({
+            token: this.$store.state.token
+          })
           this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
           this.message = loginResponse.data.message
         } catch (e) {
