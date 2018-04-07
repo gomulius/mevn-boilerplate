@@ -6,13 +6,5 @@ module.exports = {
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'secret'
-  },
-  passport: {
-    facebook: {
-      clientID: '',
-      clientSecret: '',
-      callbackURL: '',
-      profileFields: ['id', 'displayName', 'photos', 'email']
-    }
   }
 }
