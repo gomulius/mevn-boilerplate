@@ -1,11 +1,11 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-let secret = 'secret'
+const config = require('../config/config')
 
 function jwtSign (user) {
   return jwt.sign(
     { username: user.username, email: user.email },
-    secret,
+    config.secret,
     { expiresIn: '24h' }
   )
 }
