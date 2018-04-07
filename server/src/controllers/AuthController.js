@@ -5,7 +5,7 @@ const config = require('../config/config')
 function jwtSign (user) {
   return jwt.sign(
     { username: user.username, email: user.email },
-    config.secret,
+    config.jwt.secret,
     { expiresIn: '24h' }
   )
 }

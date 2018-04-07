@@ -5,7 +5,7 @@ module.exports = function (req, res, next){
   const token = req.body.token || req.body.query || req.headers['x-access-token']
 
   if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
+    jwt.verify(token, config.jwt.secret, (err, decoded) => {
       if (err) {
         res.status(400).json({ message: 'Token invalid.'})
       } else {

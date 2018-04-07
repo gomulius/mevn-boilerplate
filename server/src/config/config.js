@@ -4,7 +4,15 @@ module.exports = {
     uri: 'mongodb://localhost:27017/mevn-boilerplate',
     options: {}
   },
-  authentication: {
-    jwtSecret: process.env.JWT_SECRET || 'secret'
+  jwt: {
+    secret: process.env.JWT_SECRET || 'secret'
+  },
+  passport: {
+    facebook: {
+      clientID: '',
+      clientSecret: '',
+      callbackURL: '',
+      profileFields: ['id', 'displayName', 'photos', 'email']
+    }
   }
 }
