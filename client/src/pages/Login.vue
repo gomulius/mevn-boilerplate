@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-layout align-center justify-center>
+  <v-layout justify-center>
     <v-flex xs12 sm8 md6>
 
       <panel title="Login Form">
@@ -63,7 +63,10 @@ export default {
             token: this.$store.state.token
           })
           this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
-          this.message = loginResponse.data.message
+          this.message = loginResponse.data.message + ' ... Redirecting'
+          setTimeout(() => {
+            this.$router.push({ name: 'HelloWorld' })
+          }, 2000)
         } catch (e) {
           this.error = e.response.data.message
         }
