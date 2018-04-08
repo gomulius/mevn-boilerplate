@@ -65,7 +65,7 @@ export default {
           this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
           this.message = loginResponse.data.message + ' ... Redirecting'
           setTimeout(() => {
-            this.$router.push({ name: 'HelloWorld' })
+            this.$router.push({ name: 'Dashboard' })
           }, 2000)
         } catch (e) {
           this.error = e.response.data.message

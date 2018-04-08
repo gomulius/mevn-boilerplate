@@ -1,7 +1,12 @@
 <template lang="html">
   <v-toolbar app fixed dark class="teal darken-2">
     <v-toolbar-title>
-      <router-link :to="{ name: 'HelloWorld' }">MEVN</router-link>
+      <div v-if="!$store.state.loggedIn">
+        <router-link :to="{ name: 'HelloWorld' }">MEVN</router-link>
+      </div>
+      <div v-else>
+        <router-link :to="{ name: 'Dashboard'}">MEVN</router-link>
+      </div>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -9,8 +14,8 @@
     <v-toolbar-items>
       <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Register' }">Sign Up</v-btn>
       <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Login' }">Log In</v-btn>
+      <v-btn title="Settings" v-if="$store.state.loggedIn" flat :to="{ name: 'Settings' }">{{ this.$store.state.user }}</v-btn>
       <v-btn v-if="$store.state.loggedIn" flat @click="logout">Log Out</v-btn>
-      <v-btn v-if="$store.state.loggedIn" flat :to="{ name: 'Settings' }">{{ this.$store.state.user }}</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>

@@ -5,6 +5,7 @@ import HelloWorld from '@/pages/HelloWorld'
 import Register from '@/pages/Register'
 import Login from '@/pages/Login'
 import Settings from '@/pages/Settings'
+import Dashboard from '@/pages/Dashboard'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/settings',
       name: 'Settings',
       component: Settings
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     }
   ]
 })
