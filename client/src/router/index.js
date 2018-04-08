@@ -6,6 +6,7 @@ import Register from '@/pages/Register'
 import Login from '@/pages/Login'
 import Settings from '@/pages/Settings'
 import Dashboard from '@/pages/Dashboard'
+import NewPost from '@/pages/NewPost'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/newpost',
+      name: 'NewPost',
+      component: NewPost
     }
   ]
 })
