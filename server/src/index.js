@@ -7,6 +7,7 @@ const config = require('./config/config')
 const router = express.Router()
 const api = require('./routes/api')(router)
 
+// middleware
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors())
@@ -15,7 +16,7 @@ app.use('/api', api)
 // mongo database
 require('./models/db')
 
-// Server
+// server
 app.listen(config.port, function() {
   console.log(`Running server on port ${config.port}`);
 })
