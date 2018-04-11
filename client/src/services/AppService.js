@@ -7,6 +7,14 @@ export default {
   },
   // AppService.newPost({ postParams })
   newPost (post) {
-    return Api().get('newPost', post)
+    return Api().post('newPost', post)
+  },
+  // AppService.showPost({ postId })
+  showPost (params) {
+    return Api().get('post/' + params.id)
+  },
+  // AppService.editPost({ postParams })
+  editPost (post) {
+    return Api().put('post/' + post.id, post)
   }
 }

@@ -2,6 +2,10 @@
   <v-card class="elevation-6">
     <v-toolbar dense dark class="teal darken-2">
       <v-toolbar-title>{{ title }}</v-toolbar-title>
+
+      <v-toolbar-items>
+        <slot name="toolbar-item"></slot>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-container>
@@ -14,7 +18,8 @@
 export default {
   name: 'Panel',
   props: [
-    'title'
+    'title',
+    'toolbar-item'
   ]
 }
 </script>

@@ -30,6 +30,14 @@ module.exports = (router) => {
   router.post('/newPost',
     AppController.newPost
   )
+  // showpost
+  router.get('/post/:id',
+    AppController.showPost
+  )
+  // editpost
+  router.put('/post/:id',
+    AppController.editPost
+  )
 
   return router
 }

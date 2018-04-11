@@ -1,6 +1,13 @@
 <template lang="html">
   <v-layout>
     <panel title="Posts">
+        <v-btn
+          flat
+          absolute
+          right
+          slot="toolbar-item"
+          :to="{ name: 'NewPost' }"
+          >+ Add</v-btn>
         <table v-if="items != ''">
           <tr>
             <th>Date</th>
@@ -11,6 +18,7 @@
             <td>{{ item.date }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.body }}</td>
+            <v-btn :to="{ name: 'ViewPost', params: { id: item._id } }">View</v-btn>
           </tr>
         </table>
     </panel>
@@ -27,7 +35,7 @@ export default {
   },
   data () {
     return {
-      items: []
+      items: null
     }
   },
   async mounted () {

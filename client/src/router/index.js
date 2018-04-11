@@ -7,6 +7,7 @@ import Login from '@/pages/Login'
 import Settings from '@/pages/Settings'
 import Dashboard from '@/pages/Dashboard'
 import NewPost from '@/pages/NewPost'
+import ViewPost from '@/pages/viewPost'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/newpost',
       name: 'NewPost',
       component: NewPost
+    },
+    {
+      path: '/viewpost/:id',
+      name: 'ViewPost',
+      component: ViewPost
     }
   ]
 })
