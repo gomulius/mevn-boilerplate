@@ -1,7 +1,7 @@
 <template lang="html">
   <v-toolbar app fixed dark class="teal darken-2">
     <v-toolbar-title>
-      <div v-if="!$store.state.loggedIn">
+      <div v-if="!loggedIn">
         <router-link :to="{ name: 'HelloWorld' }">MEVN</router-link>
       </div>
       <div v-else>
@@ -12,17 +12,23 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Register' }">Sign Up</v-btn>
-      <v-btn v-if="!$store.state.loggedIn" flat :to="{ name: 'Login' }">Log In</v-btn>
-      <v-btn title="Settings" v-if="$store.state.loggedIn" flat :to="{ name: 'Settings' }">{{ this.$store.state.user }}</v-btn>
-      <v-btn v-if="$store.state.loggedIn" flat @click="logout">Log Out</v-btn>
+      <v-btn v-if="!loggedIn" flat :to="{ name: 'Register' }">Sign Up</v-btn>
+      <v-btn v-if="!loggedIn" flat :to="{ name: 'Login' }">Log In</v-btn>
+      <v-btn title="Settings" v-if="loggedIn" flat :to="{ name: 'Settings' }">{{ this.$store.state.user }}</v-btn>
+      <v-btn v-if="loggedIn" flat @click="logout">Log Out</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Header',
+  computed: {
+    ...mapState([
+      'loggedIn'
+    ])
+  },
   methods: {
     logout () {
       this.$store.dispatch('setToken', null)

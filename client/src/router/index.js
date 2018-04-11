@@ -48,6 +48,10 @@ export default new Router({
       path: '/viewpost/:id',
       name: 'ViewPost',
       component: ViewPost
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
