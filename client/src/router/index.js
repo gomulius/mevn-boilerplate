@@ -23,12 +23,14 @@ const router = new Router({
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: { requiresAuth: false }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: { requiresAuth: false }
     },
     {
       path: '/settings',
@@ -71,8 +73,15 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    next()
+    if (store.state.loggedIn) {
+      next({
+        path: '/dashboard'
+      })
+    } else {
+      next()
+    }
   }
+  next()
 })
 
 export default router
