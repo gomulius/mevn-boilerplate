@@ -26,7 +26,12 @@ module.exports = {
         if (err) {
           res.json({ message: 'Error trying to create a new post' })
         } else {
-          res.send(post)
+          res.send({
+            message: 'New post successfully submitted!',
+            title: req.body.title,
+            body: req.body.body,
+            date: req.body.date
+          })
         }
       })
     }
@@ -57,7 +62,7 @@ module.exports = {
             if (err) {
               res.status(400).json({ message: 'Error trying to update post' })
             } else {
-              res.send(post)
+              res.json({ message: 'Post successfully updated!' })
             }
           })
         }

@@ -41,10 +41,17 @@
 <script>
 import AppService from '@/services/AppService'
 import Panel from '@/components/Panel'
+import { mapState } from 'vuex'
 export default {
   name: 'ViewPost',
   components: {
     Panel
+  },
+  computed: {
+    ...mapState([
+      'message',
+      'error'
+    ])
   },
   data () {
     return {
@@ -57,35 +64,36 @@ export default {
       },
       rules: {
         required: v => !!v || 'Required.'
-      },
-      message: null,
-      error: null
+      }
+    }
+  },
+  methods: {
+    async editPost (e) {
+      e.preventDefault()
+      this.$store.dispatch('setError', null)
+      this.$store.dispatch('setMessage', null)
+      if (this.$refs.form.validate()) {
+        try {
+          const editPostResponse = await AppService.editPost(this.form)
+          this.$store.dispatch('setMessage', editPostResponse.data.message + ' ... Redirecting')
+          setTimeout(() => {
+            this.$router.push({ name: 'Dashboard' })
+          }, 2000)
+        } catch (e) {
+          this.$store.dispatch('setError', e.response.data.message)
+        }
+      }
     }
   },
   async mounted () {
+    this.$store.dispatch('setError', null)
+    this.$store.dispatch('setMessage', null)
     const post = (await AppService.showPost({
       id: this.$route.params.id
     })).data
     this.form.id = post._id
     this.form.title = post.title
     this.form.body = post.body
-  },
-  methods: {
-    async editPost (e) {
-      e.preventDefault()
-      if (this.$refs.form.validate()) {
-        try {
-          const editPostResponse = await AppService.editPost(this.form)
-          this.message = editPostResponse.data.message
-          this.message = '... Redirecting to dashboard.'
-          setTimeout(() => {
-            this.$router.push({ name: 'Dashboard' })
-          }, 2000)
-        } catch (e) {
-          this.error = e.response.data.message
-        }
-      }
-    }
   }
 }
 </script>

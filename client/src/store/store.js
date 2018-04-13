@@ -10,7 +10,9 @@ export default new Vuex.Store({
   state: {
     token: null,
     user: null,
-    loggedIn: false
+    loggedIn: false,
+    message: '',
+    error: ''
   },
   mutations: {
     setToken (state, token) {
@@ -23,6 +25,12 @@ export default new Vuex.Store({
     },
     setUser (state, user) {
       state.user = user
+    },
+    setMessage (state, message) {
+      state.message = message
+    },
+    setError (state, error) {
+      state.error = error
     }
   },
   actions: {
@@ -31,6 +39,12 @@ export default new Vuex.Store({
     },
     setUser ({commit}, user) {
       commit('setUser', user)
+    },
+    setMessage ({commit}, message) {
+      commit('setMessage', message)
+    },
+    setError ({commit}, error) {
+      commit('setError', error)
     }
   }
 })

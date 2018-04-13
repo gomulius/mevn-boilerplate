@@ -2,7 +2,7 @@
   <v-layout justify-center>
     <v-flex xs12 sm8 md6>
 
-      <panel :title="$store.state.user.username + '\'s Profile'">
+      <panel :title="user.username + '\'s Profile'">
         <table class="usertable">
           <tr>
             <th>Username</th>
@@ -10,8 +10,8 @@
             <th>Password</th>
           </tr>
           <tr>
-            <td>{{ $store.state.user.username }}</td>
-            <td>{{ $store.state.user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
             <td>*************</td>
           </tr>
         </table>
@@ -23,10 +23,16 @@
 
 <script>
 import Panel from '@/components/Panel'
+import { mapState } from 'vuex'
 export default {
   name: 'Settings',
   components: {
     Panel
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ])
   },
   data () {
     return {

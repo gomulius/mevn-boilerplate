@@ -14,7 +14,7 @@
     <v-toolbar-items>
       <v-btn v-if="!loggedIn" flat :to="{ name: 'Register' }">Sign Up</v-btn>
       <v-btn v-if="!loggedIn" flat :to="{ name: 'Login' }">Log In</v-btn>
-      <v-btn title="Settings" v-if="loggedIn" flat :to="{ name: 'Settings' }">{{ this.$store.state.user.username }}</v-btn>
+      <v-btn title="Settings" v-if="loggedIn" flat :to="{ name: 'Settings' }">{{ user.username }}</v-btn>
       <v-btn v-if="loggedIn" flat @click="logout">Log Out</v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -26,7 +26,8 @@ export default {
   name: 'Header',
   computed: {
     ...mapState([
-      'loggedIn'
+      'loggedIn',
+      'user'
     ])
   },
   methods: {

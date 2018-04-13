@@ -43,10 +43,17 @@
 import AuthService from '@/services/AuthService'
 import Panel from '@/components/Panel'
 import getUser from '@/mixins/getUser'
+import { mapState } from 'vuex'
 export default {
   name: 'Register',
   components: {
     Panel
+  },
+  computed: {
+    ...mapState([
+      'message',
+      'error'
+    ])
   },
   data () {
     return {
@@ -57,8 +64,6 @@ export default {
         username: ''
       },
       emailCheck: '',
-      error: null,
-      message: null,
       rules: {
         required: v => !!v || 'Required.',
         email: v => v === this.form.email || 'Please check your email address.'
@@ -68,8 +73,8 @@ export default {
   methods: {
     async register (e) {
       e.preventDefault()
-      this.error = null
-      this.message = null
+      this.$store.dispatch('setError', null)
+      this.$store.dispatch('setMessage', null)
       if (this.$refs.form.validate()) {
         try {
           const registerResponse = await AuthService.register(this.form)
@@ -77,16 +82,20 @@ export default {
           const jwtVerifyResponse = await getUser({
             token: this.$store.state.token
           })
-          this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
-          this.message = registerResponse.data.message + ' ... Redirecting'
+          this.$store.dispatch('setUser', jwtVerifyResponse.data)
+          this.$store.dispatch('setMessage', registerResponse.data.message + ' ... Redirecting')
           setTimeout(() => {
             this.$router.push({ name: 'Dashboard' })
           }, 2000)
         } catch (e) {
-          this.error = e.response.data.message
+          this.$store.dispatch('setError', e.response.data.message)
         }
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('setError', null)
+    this.$store.dispatch('setMessage', null)
   }
 }
 </script>

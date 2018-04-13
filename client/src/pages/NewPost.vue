@@ -42,10 +42,17 @@
 <script>
 import AppService from '@/services/AppService'
 import Panel from '@/components/Panel'
+import { mapState } from 'vuex'
 export default {
   name: 'NewPost',
   components: {
     Panel
+  },
+  computed: {
+    ...mapState([
+      'message',
+      'error'
+    ])
   },
   data () {
     return {
@@ -55,8 +62,6 @@ export default {
         body: '',
         date: ''
       },
-      error: null,
-      message: null,
       rules: {
         required: v => !!v || 'Required.'
       }
@@ -65,19 +70,24 @@ export default {
   methods: {
     async newPost (e) {
       e.preventDefault()
+      this.$store.dispatch('setError', null)
+      this.$store.dispatch('setMessage', null)
       if (this.$refs.form.validate()) {
         try {
           const newPostResponse = await AppService.newPost(this.form)
-          this.message = newPostResponse.data.message
-          this.message = '... Redirecting to dashboard.'
+          this.$store.dispatch('setMessage', newPostResponse.data.message + ' ... Redirecting')
           setTimeout(() => {
             this.$router.push({ name: 'Dashboard' })
           }, 2000)
         } catch (e) {
-          this.error = e.response.data.message
+          this.$store.dispatch('setError', e.response.data.message)
         }
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('setError', null)
+    this.$store.dispatch('setMessage', null)
   }
 }
 </script>

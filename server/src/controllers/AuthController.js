@@ -43,7 +43,7 @@ module.exports = {
         if (req.body.password) {
           const validPassword = user.comparePassword(req.body.password)
           if (!validPassword) {
-            res.status(401).json({ message: 'Could not be authenticate password' })
+            res.status(401).json({ message: 'Could not authenticate password' })
           } else {
             res.json({ message: 'User authenticated!', token: jwtSign(user) })
           }
