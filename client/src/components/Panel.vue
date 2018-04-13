@@ -8,9 +8,7 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-container>
-      <slot>No slot content defined.</slot>
-    </v-container>
+    <slot>No slot content defined.</slot>
   </v-card>
 </template>
 

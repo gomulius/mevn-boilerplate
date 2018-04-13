@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store/store'
 // pages
 import HelloWorld from '@/pages/HelloWorld'
 import Register from '@/pages/Register'
@@ -11,7 +12,7 @@ import ViewPost from '@/pages/viewPost'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -32,22 +33,26 @@ export default new Router({
     {
       path: '/settings',
       name: 'Settings',
-      component: Settings
+      component: Settings,
+      meta: { requiresAuth: true }
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: { requiresAuth: true }
     },
     {
       path: '/newpost',
       name: 'NewPost',
-      component: NewPost
+      component: NewPost,
+      meta: { requiresAuth: true }
     },
     {
       path: '/viewpost/:id',
       name: 'ViewPost',
-      component: ViewPost
+      component: ViewPost,
+      meta: { requiresAuth: true }
     },
     {
       path: '*',
@@ -55,3 +60,19 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.state.loggedIn) {
+      next({
+        path: '/register'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

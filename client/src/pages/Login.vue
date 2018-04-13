@@ -62,7 +62,7 @@ export default {
           const jwtVerifyResponse = await getUser({
             token: this.$store.state.token
           })
-          this.$store.dispatch('setUser', jwtVerifyResponse.data.username)
+          this.$store.dispatch('setUser', jwtVerifyResponse.data)
           this.message = loginResponse.data.message + ' ... Redirecting'
           setTimeout(() => {
             this.$router.push({ name: 'Dashboard' })
