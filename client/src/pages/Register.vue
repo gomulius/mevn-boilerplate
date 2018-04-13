@@ -15,9 +15,11 @@
           ></v-text-field>
           <v-text-field
           v-model="form.password"
-          type="password"
+          :append-icon="visible ? 'visibility_off' : 'visibility'"
+          :append-icon-cb="() => (visible = !visible)"
+          :type="visible ? 'text' : 'password'"
           label="Enter password:"
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.password]"
           ></v-text-field>
           <v-text-field
           v-model="form.email"
@@ -58,6 +60,7 @@ export default {
   data () {
     return {
       valid: true,
+      visible: false,
       form: {
         email: '',
         password: '',
@@ -66,7 +69,8 @@ export default {
       emailCheck: '',
       rules: {
         required: v => !!v || 'Required.',
-        email: v => v === this.form.email || 'Please check your email address.'
+        email: v => v === this.form.email || 'Please check your email address.',
+        password: v => /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/.test(v) || 'Password must contain at least one lowercase, one uppercase, one number, one special character, and must have between 8 and 35 characters'
       }
     }
   },

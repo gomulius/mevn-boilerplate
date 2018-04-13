@@ -34,7 +34,7 @@ module.exports = {
   login (req, res) {
     User.findOne({ username: req.body.username }).select('email username password').exec((err, user) => {
       if (err) {
-        res.status(500).json({ messaeg: 'An error has occured trying to log in'})
+        res.status(500).json({ message: 'An error has occured trying to log in'})
       }
 
       if (!user) {
