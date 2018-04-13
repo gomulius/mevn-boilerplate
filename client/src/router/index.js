@@ -23,12 +23,14 @@ const router = new Router({
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: { notLoggedIn: true }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: { notLoggedIn: true }
     },
     {
       path: '/settings',
@@ -71,15 +73,22 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    if (store.state.loggedIn) {
+    next()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.notLoggedIn)) {
+    if (!store.state.loggedIn) {
+      next()
+    } else {
       next({
         path: '/dashboard'
       })
-    } else {
-      next()
     }
+  } else {
+    next()
   }
-  next()
 })
 
 export default router
