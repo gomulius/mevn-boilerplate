@@ -30,7 +30,6 @@
 <script>
 import AuthService from '@/services/AuthService'
 import Panel from '@/components/Panel'
-import getUser from '@/mixins/getUser'
 import { mapState } from 'vuex'
 export default {
   name: 'Login',
@@ -64,7 +63,7 @@ export default {
         try {
           const loginResponse = await AuthService.login(this.form)
           this.$store.dispatch('setToken', loginResponse.data.token)
-          const jwtVerifyResponse = await getUser({
+          const jwtVerifyResponse = await AuthService.getUser({
             token: this.$store.state.token
           })
           this.$store.dispatch('setUser', jwtVerifyResponse.data)
