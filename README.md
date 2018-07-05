@@ -2,8 +2,14 @@
 
 A simple MEVN (MongoDB, Express.js, Vue.js, Node.js) web application boilerplate for personal projects.
 
+<img src="/screenshots/screenshot1.PNG" alt="Picture of MEVN-boilerplate" height="80%" width="80%">
+
+## Requirements
+The following software must be installed
+* MongoDB
+* Node.js
+
 ## Usage
-**Note**: This guide assumes you already have MongoDB set up
 1. Clone this repo: `git clone https://github.com/georgeeyokoyama/mevn-boilerplate.git myproject`
 2. Move into project directory: `cd myproject`
 3. Setup **client-side**:  
@@ -76,3 +82,8 @@ A simple MEVN (MongoDB, Express.js, Vue.js, Node.js) web application boilerplate
 
 ## License
 mevn-boilerplate is available under [MIT license](https://tldrlegal.com/license/mit-license).
+
+### Screenshots
+
+<img src="/screenshots/screenshot2.PNG" alt="Login page on mobile" align="left" height="80%">
+<img src="/screenshots/screenshot3.PNG" alt="Edit post page on mobile" align="right" height="80%">
