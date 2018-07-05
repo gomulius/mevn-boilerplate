@@ -85,5 +85,5 @@ mevn-boilerplate is available under [MIT license](https://tldrlegal.com/license/
 
 ### Screenshots
 
-<img src="/screenshots/screenshot2.PNG" alt="Login page on mobile" align="left" width="50%">
-<img src="/screenshots/screenshot3.PNG" alt="Edit post page on mobile" align="right" width="50%">
+<img src="/screenshots/screenshot2.PNG" alt="Login page on mobile" align="left" width="350px">
+<img src="/screenshots/screenshot3.PNG" alt="Edit post page on mobile" align="left" width="350px">
