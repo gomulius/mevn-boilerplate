@@ -8,7 +8,9 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <slot>No slot content defined.</slot>
+    <div class="card-content">
+      <slot>No slot content defined.</slot>
+    </div>
   </v-card>
 </template>
 
@@ -23,4 +25,7 @@ export default {
 </script>
 
 <style lang="css">
+.card-content {
+  padding: 0.5rem;
+}
 </style>

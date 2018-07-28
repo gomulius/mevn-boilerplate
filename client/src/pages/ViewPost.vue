@@ -14,13 +14,13 @@
           required
           :rules="[rules.required]"
           ></v-text-field>
-          <v-text-field
+          <v-textarea
           v-model="form.body"
-          textarea
           label="Enter body:"
+          outlin
           required
           :rules="[rules.required]"
-          ></v-text-field>
+          ></v-textarea>
           <v-text-field
           v-model="form.date"
           type="date"

@@ -6,17 +6,16 @@
         <v-alert outline transition="scale-transition" color="error" icon="warning" :value="!!error">{{ error }}</v-alert>
         <v-alert outline transition="scale-transition" color="success" icon="check_circle" :value="!!message">{{ message }}</v-alert>
 
-        <v-form v-model="valid" ref="form" lazy-validation @submit="register">
+        <v-form v-model="valid" full-width ref="form" lazy-validation @submit="register">
           <v-text-field
           v-model="form.username"
-          type="text"
           label="Enter username:"
           :rules="[rules.required]"
           ></v-text-field>
           <v-text-field
           v-model="form.password"
           :append-icon="visible ? 'visibility_off' : 'visibility'"
-          :append-icon-cb="() => (visible = !visible)"
+          @click:append="() => (visible = !visible)"
           :type="visible ? 'text' : 'password'"
           label="Enter password:"
           :rules="[rules.required, rules.password]"
